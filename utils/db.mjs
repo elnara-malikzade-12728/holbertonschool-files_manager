@@ -11,18 +11,18 @@ class DBClient {
     this.connected = false;
     this.db = null;
 
-    MongoClient.connect(`mongodb://${host}:${port}`, {
-      useUnifiedTopology: true,
-    }, (err, client) => {
-      if (!err) {
+    MongoClient.connect(`mongodb://${host}:${port}`, { useUnifiedTopology: true })
+      .then((client) => {
         this.db = client.db(database);
         this.connected = true;
-      }
-    });
+      })
+      .catch(() => {
+        this.connected = false;
+      });
   }
 
   isAlive() {
-    return this.db.connected;
+    return this.connected;
   }
 
   async nbUsers() {
