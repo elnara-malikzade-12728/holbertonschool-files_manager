@@ -3,7 +3,6 @@ import User from '../models/User';
 import dbClient from '../utils/db.mjs';
 import redisClient from '../utils/redis.mjs';
 
-
 class UsersController {
   static async postNew(req, res) {
     const { email, password } = req.body;
@@ -27,14 +26,14 @@ class UsersController {
     }
     const userId = await redisClient.get(`auth_${userToken}`);
     if (!userId) {
-      return res.status(401).json({ error: 'Unauthorized'});
+      return res.status(401).json({ error: 'Unauthorized' });
     }
     const user = await dbClient.db.collection('users').findOne({
       _id: new ObjectId(userId),
     });
 
     if (!user) {
-      return res.status(401).json({ error: 'Unauthorized'});
+      return res.status(401).json({ error: 'Unauthorized' });
     }
     return res.status(200).json({
       id: user._id.toString(),
