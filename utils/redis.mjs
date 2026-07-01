@@ -1,5 +1,8 @@
-import redis from 'redis';
+import redisPackage from 'redis';
 import { promisify } from 'util';
+
+const redis = redisPackage.default || redisPackage;
+
 
 class RedisClient {
   constructor() {
