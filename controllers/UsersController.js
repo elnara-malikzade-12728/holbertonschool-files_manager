@@ -1,4 +1,4 @@
-import User from '../models/user.js';
+import User from '../models/User.js';
 
 class UsersController {
     static async postNew(req, res) {
